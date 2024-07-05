@@ -6,4 +6,4 @@ releases:
   - name: argo-workflows
     namespace: argo
     chart: argo/argo-workflows
-    version: 0.41.8 
+    version: 0.41.7

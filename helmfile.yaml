@@ -5,15 +5,60 @@ repositories:
   - name: argo
     url: https://argoproj.github.io/argo-helm
 
+  - name: mattermost
+    url:  https://helm.mattermost.com
+
+  #- name: bitnami
+  #  url:  https://charts.bitnami.com/bitnami
+
+  - name: oauth2-proxy
+    url:  https://oauth2-proxy.github.io/manifests 
+
 releases:
   - name: traefik
     namespace: traefik
     chart: traefik/traefik
+    version: 29.0.0
     values:
-      - service:
-          type: LoadBalancer
+      - './traefik/values.yaml'
 
   - name: argo-workflows
     namespace: argo
     chart: argo/argo-workflows
     version: 0.41.7
+    values:
+      - './argo-workflows/values.yaml'
+
+  - name: argo-workflows-ingressroute
+    namespace: argo
+    chart: './argo-workflows/chart/'
+  
+  # - name: postgresql
+  #  namespace: postgresql
+  #  chart: oci://registry-1.docker.io/bitnamicharts/postgresql
+  #  version: 15.5.20
+  #  values:
+  #    - './postgresql/values.yaml'
+
+  - name: oauth2-proxy
+    namespace: oauth2-proxy
+    chart: oauth2-proxy/oauth2-proxy
+
+
+  # - name: mlflow
+  #  namespace: mlflow
+  #  chart: oci://registry-1.docker.io/bitnamicharts/mlflow
+  #  version: 1.4.20
+ 
+
+  #- name: postgresql
+  #  namespace: postgresql
+  #  chart: bitnami/postgresql 
+  #  version: 15.5.20
+
+  # - name: mattermost-team-edition
+  #  namespace: mattermost
+  # chart: mattermost/mattermost-team-edition
+  #  values:
+  #    - './mattermost/values.yaml'
+

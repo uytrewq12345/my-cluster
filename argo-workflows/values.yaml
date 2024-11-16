@@ -1,0 +1,3 @@
+server:
+  baseHref: /argowf/
+  authModes: ["server"]

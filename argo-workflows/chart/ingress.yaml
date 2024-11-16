@@ -1,0 +1,31 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argo-workflows-ingressroute
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`my-cluster.com`) && PathPrefix(`/argowf`)
+    kind: Rule
+    services:
+    - kind: Service
+      name: argo-workflows-server
+      namespace: argo
+      middlewares:
+        - name: strip-argowf
+          namespace: traefik
+      port: 2746
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-argowf
+  namespace: traefik
+spec:
+  stripPrefix:
+    prefixes:
+      - /argowf

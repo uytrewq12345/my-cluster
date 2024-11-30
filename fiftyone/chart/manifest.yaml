@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fiftyone
+  namespace: fiftyone
+  labels:
+    app: fiftyone
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fiftyone
+  template:
+    metadata:
+      labels:
+        app: fiftyone
+    spec:
+      containers:
+        - name: fiftyone
+          image: voxel51/fiftyone:v1.0.2
+          ports:
+            - containerPort: 5151
+          env:
+            - name: FIFTYONE_APP_PROXY_URL
+              value: http://my-cluster.com/fiftyone
+          volumeMounts:
+            - name: fiftyone-data
+              mountPath: /data 
+      volumes:
+        - name: fiftyone-data
+          emptyDir: {} 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fiftyone
+  namespace: fiftyone
+  labels:
+    app: fiftyone
+spec:
+  ports:
+    - port: 5151
+      targetPort: 5151
+  selector:
+    app: fiftyone
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: fiftyone
+  namespace: traefik
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: Host(`my-cluster.com`) && PathPrefix(`/fiftyone`)
+    services:
+    - name: fiftyone
+      namespace: fiftyone
+      port: 5151
+    middlewares:
+    - name: stripprefix-fiftyone
+      namespace: fiftyone
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: stripprefix-fiftyone
+  namespace: fiftyone
+
+spec:
+  stripPrefix:
+    prefixes:
+      - /fiftyone

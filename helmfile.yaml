@@ -44,6 +44,9 @@ releases:
     namespace: oauth2-proxy
     chart: oauth2-proxy/oauth2-proxy
 
+  - name: fiftyone
+    namespace: fiftyone
+    chart: 'fiftyone/chart'
 
   # - name: mlflow
   #  namespace: mlflow

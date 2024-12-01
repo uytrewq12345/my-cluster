@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: fiftyone
-          image: voxel51/fiftyone:v1.0.2
+          image: myapps/fiftyone:v1.0.2
           ports:
             - containerPort: 5151
           env:

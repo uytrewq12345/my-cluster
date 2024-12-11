@@ -1,0 +1,30 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: cvat-ingressroute
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+  - match: Host(`cvat.my-cluster.com`) 
+    kind: Rule
+    services:
+    - name: cvat-frontend-service
+      namespace: cvat
+      #middlewares:
+      #  - name: strip-cvat
+      #    namespace: traefik
+      port: 80
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-cvat
+  namespace: traefik
+spec:
+  stripPrefix:
+    prefixes:
+      - /cvat

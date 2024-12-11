@@ -33,6 +33,15 @@ releases:
     namespace: argo
     chart: './argo-workflows/chart/'
   
+  - name: argo-cd
+    namespace: argocd
+    chart: argo/argo-cd
+    values:
+      - './argocd/values.yaml'
+    
+  - name: argo-cd-ingressroute
+    namespace: argocd
+    chart: './argocd/chart/'
   # - name: postgresql
   #  namespace: postgresql
   #  chart: oci://registry-1.docker.io/bitnamicharts/postgresql
@@ -47,6 +56,16 @@ releases:
   - name: fiftyone
     namespace: fiftyone
     chart: 'fiftyone/chart'
+
+  - name: cvat
+    namespace: cvat
+    chart: cvat/cvat/helm-chart
+    # values: cvat/values.yaml
+
+  - name: cvat-ingressroute
+    namespace: cvat
+    chart: cvat/chart
+
 
   # - name: mlflow
   #  namespace: mlflow

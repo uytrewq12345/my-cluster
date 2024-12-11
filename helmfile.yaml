@@ -14,6 +14,18 @@ repositories:
   - name: oauth2-proxy
     url:  https://oauth2-proxy.github.io/manifests 
 
+  - name: bitnami
+    url:  https://charts.bitnami.com/bitnami
+
+  - name: nuclio
+    url:  https://nuclio.github.io/nuclio/charts
+
+  - name: vector
+    url:  https://helm.vector.dev
+
+  - name: grafana
+    url:  https://grafana.github.io/helm-charts
+
 releases:
   - name: traefik
     namespace: traefik

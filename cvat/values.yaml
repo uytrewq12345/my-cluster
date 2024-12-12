@@ -1,3 +1,4 @@
-
-traefik:
-  enabled: false
+grafana:
+  grafana.ini:
+    server:
+      root_url: https://cvat.my-cluster.com/analytics

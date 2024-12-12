@@ -12,21 +12,42 @@ spec:
     services:
     - name: cvat-frontend-service
       namespace: cvat
-      #middlewares:
-      #  - name: strip-cvat
-      #    namespace: traefik
       port: 80
+
+  - match: Host(`cvat.my-cluster.com`) && PathPrefix(`/api`)
+    kind: Rule
+    services:
+    - name: cvat-backend-service
+      namespace: cvat
+      port: 8080
+
+  - match: Host(`cvat.my-cluster.com`) && PathPrefix(`/admin`)
+    kind: Rule
+    services:
+    - name: cvat-backend-service
+      namespace: cvat
+      port: 8080
+
+  - match: Host(`cvat.my-cluster.com`) && PathPrefix(`/static`)
+    kind: Rule
+    services:
+    - name: cvat-backend-service
+      namespace: cvat
+      port: 8080
+
+  - match: Host(`cvat.my-cluster.com`) && PathPrefix(`/django-rq`)
+    kind: Rule
+    services:
+    - name: cvat-backend-service
+      namespace: cvat
+      port: 8080
+
+  - match: Host(`cvat.my-cluster.com`) && PathPrefix(`/profiler`)
+    kind: Rule
+    services:
+    - name: cvat-backend-service
+      namespace: cvat
+      port: 8080
+
   tls:
     secretName: wildcard-cert
-
----
-
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
-  name: strip-cvat
-  namespace: traefik
-spec:
-  stripPrefix:
-    prefixes:
-      - /cvat

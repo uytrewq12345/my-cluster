@@ -5,7 +5,7 @@ metadata:
   namespace: traefik
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
   - match: Host(`cvat.my-cluster.com`) 
     kind: Rule
@@ -16,6 +16,8 @@ spec:
       #  - name: strip-cvat
       #    namespace: traefik
       port: 80
+  tls:
+    secretName: wildcard-cert
 
 ---
 

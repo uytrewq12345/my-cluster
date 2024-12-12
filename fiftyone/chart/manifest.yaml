@@ -55,7 +55,7 @@ metadata:
   namespace: traefik
 spec:
   entryPoints:
-  - web
+  - websecure
   routes:
   - kind: Rule
     match: Host(`my-cluster.com`) && PathPrefix(`/fiftyone`)
@@ -66,6 +66,8 @@ spec:
     middlewares:
     - name: stripprefix-fiftyone
       namespace: fiftyone
+  tls:
+    secretName: wildcard-cert
 
 ---
 

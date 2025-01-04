@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# 出力用ディレクトリの作成
+mkdir -p out/
+
 # 秘密鍵を作成
 openssl genrsa -out out/wildcard.my-cluster.com.key 2048
 

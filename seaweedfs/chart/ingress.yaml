@@ -1,0 +1,33 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: seaweedfs-ingressroute
+  namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`my-cluster.com`)  && PathPrefix(`/seaweedfs`)
+    kind: Rule
+    services:
+    - name: seaweedfs-s3
+      namespace: seaweedfs
+      middlewares:
+        - name: strip-seaweedfs
+          namespace: traefik
+      port: 8333
+  tls:
+    secretName: wildcard-cert
+
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-seaweedfs
+  namespace: traefik
+spec:
+  stripPrefix:
+    prefixes:
+      - /seaweedfs

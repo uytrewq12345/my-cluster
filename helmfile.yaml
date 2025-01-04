@@ -61,6 +61,16 @@ releases:
   #  values:
   #    - './postgresql/values.yaml'
 
+  - name: seaweedfs
+    namespace: seaweedfs
+    chart: seaweedfs/seaweedfs
+    values:
+      - seaweedfs/values.yaml
+
+  - name: seaweedfs-route
+    namespace: seaweedfs
+    chart: ./seaweedfs/chart
+
   - name: oauth2-proxy
     namespace: oauth2-proxy
     chart: oauth2-proxy/oauth2-proxy

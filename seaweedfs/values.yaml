@@ -1,0 +1,4 @@
+filer:
+  s3:
+    enabled: true
+    enableAuth: true

@@ -34,6 +34,16 @@ releases:
     values:
       - './traefik/values.yaml'
 
+  - name: cert-manager
+    namespace: cert-manager
+    chart: oci://registry-1.docker.io/bitnamicharts/cert-manager
+    version: 1.4.14
+    values:
+      - installCRDs: true
+  
+  - name: selfsigned-cert
+    namespace: cert-manager
+    chart: './cert-manager/chart/'
   - name: argo-workflows
     namespace: argo
     chart: argo/argo-workflows
